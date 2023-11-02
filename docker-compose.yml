@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  ### MySql database USER
+  db-Ecommerce:
+    container_name: db-project
+    image: mysql:8.0.33
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ms_project
+      MYSQL_USER: nroch
+      MYSQL_PASSWORD: Test123
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    expose:
+      - 3307
