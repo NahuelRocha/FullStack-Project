@@ -1,7 +1,6 @@
 package com.rocha.fullstack.service.serviceImpl;
 
 import com.rocha.fullstack.exceptions.MainProductNotFoundException;
-import com.rocha.fullstack.models.MainProduct;
 import com.rocha.fullstack.models.Product;
 import com.rocha.fullstack.repository.ProductRepository;
 import com.rocha.fullstack.repository.ProductRepositoryPageable;

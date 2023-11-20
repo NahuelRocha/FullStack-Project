@@ -1,17 +1,27 @@
 package com.rocha.fullstack.controller;
 
+import com.rocha.fullstack.config.ApplicationConfig;
+import com.rocha.fullstack.config.jwtService.JwtService;
 import com.rocha.fullstack.models.User;
 import com.rocha.fullstack.service.serviceImpl.UserServiceImpl;
 import com.rocha.fullstack.dto.formValidation.ValidEmail;
 import com.rocha.fullstack.dto.formValidation.ValidLastname;
 import com.rocha.fullstack.dto.formValidation.ValidName;
 import com.rocha.fullstack.dto.formValidation.ValidPassword;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+
 
 @Controller
 @RequestMapping("/form")
@@ -19,27 +29,31 @@ import org.springframework.web.bind.annotation.*;
 public class FormController {
 
     private final UserServiceImpl userService;
-
-    @GetMapping("/register")
-    public String register() {
-
-        return "register";
-    }
+    private final JwtService jwtService;
+    private final ApplicationConfig applicationConfig;
 
     @PostMapping("/registerUser")
-    public ResponseEntity<String> registerUser(@Valid User user, BindingResult bindingResult) {
+    public ResponseEntity<String> registerUser(@Valid User user, BindingResult bindingResult, HttpServletResponse response) {
 
-        if (bindingResult.hasErrors()){
-
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.ok("Fix incorrect fields");
         }
 
         boolean createUser = userService.createUser(user);
+        if (createUser) {
+            UserDetails userDetails = applicationConfig.userDetailsService()
+                    .loadUserByUsername(user.getEmail());
+            String jwtToken = jwtService.generateToken(userDetails);
 
-        if (createUser){
-            return ResponseEntity.ok("SUCCESS");
+            Cookie jwtCookie = new Cookie("jwt", jwtToken);
+            jwtCookie.setMaxAge(-1);
+            jwtCookie.setHttpOnly(true);
+            response.addCookie(jwtCookie);
+
+            return ResponseEntity.ok("SUCCESS, please login.");
+
         } else {
-            return ResponseEntity.ok("Fix incorrect fields");
+            return ResponseEntity.ok("Email already taken");
         }
     }
 
@@ -101,7 +115,7 @@ public class FormController {
             return ResponseEntity.ok("");
         }
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.ok("Use at least one number and one capital letter.");
+            return ResponseEntity.ok("The password must contain at least one number, letter and special character(@$!%*?&).");
         } else {
             return ResponseEntity.ok("");
         }

@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="output.css">
+<link rel="stylesheet" href="transition.css">
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<div id="main" class="products flex items-center flex-wrap" xmlns:th="http://www.w3.org/1999/xhtml">
+  <div th:each="item : ${getProducts}" class="w-full md:w-1/3 xl:w-1/4 p-6 transition-transform duration-300 ease-in-out transform hover:scale-110">
+    <a href="#">
+      <img th:src="${item.product.image}" class="rounded-xl hover:shadow-lg" th:alt="${item.product.name}">
+    </a>
+    <div class="pt-3 flex items-center justify-between">
+      <a href="#" class="font-semibold" th:text="${item.product.name}">Product name</a>
+
+      <a th:attr="hx-delete='/api/product/del-cart/' + ${item.cartId}" hx-trigger="click" hx-swap="none" class="cursor-pointer text-red-500 hover:text-purple-800">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="m9.4 15.308l2.6-2.6l2.6 2.6l.708-.708l-2.6-2.6l2.6-2.6l-.708-.708l-2.6 2.6l-2.6-2.6l-.708.708l2.6 2.6l-2.6 2.6l.708.708ZM4.615 19q-.69 0-1.152-.462Q3 18.075 3 17.385V6.615q0-.69.463-1.152Q3.925 5 4.615 5h14.77q.69 0 1.152.463q.463.462.463 1.152v10.77q0 .69-.462 1.152q-.463.463-1.153.463H4.615Z"/></svg>
+      </a>
+    </div>
+
+    <p class="text-gray-400" th:text="'$'+ ${item.product.price}">$9.99</p>
+  </div>
+  <div class="w-full text-center mt-4">
+    <button hx-get="/api/product/order-details" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#show"
+            class="cursor-pointer font-semibold px-6 py-2 rounded-full bg-purple-500 text-white hover:bg-purple-700">Order Details</button>
+  </div>
+</div>

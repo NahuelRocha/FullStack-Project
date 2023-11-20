@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="output.css">
+<link rel="stylesheet" href="transition.css">
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<body id="main" class="flex flex-col min-h-screen">
+<nav hx-get="/navbar" hx-trigger="load" class="border-b border-gray-300"></nav>
+<main class="pb-6 flex-grow">
+    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-start py-3 px-6 xl:px-0" xmlns:th="http://www.w3.org/1999/xhtml">
+        <div class="left-transition w-full lg:w-1/4 mt-4 lg:mt-0">
+            <h3 class="mb-2 text-2xl" th:text="'Welcome ' + ${user.firstname} +' '+ ${user.lastname}">Hola User</h3>
+
+
+            <h4 class="mt-6 mb-2 text-lg">Control Panel</h4>
+            <ul class="space-y-2">
+                <li><a hx-get="/shop" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#main" class="cursor-pointer ml-2 text-sm font-semibold text-purple-500 hover:border-b hover:border-purple-500 transform transition-transform duration-300">- Shop</a></li>
+                <li><a hx-get="/my-shopping" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#main" class="cursor-pointer ml-2 text-sm font-semibold text-purple-500 hover:border-b hover:border-purple-500 transform transition-transform duration-300">- My shopping</a></li>
+                <li><a hx-get="/list-details" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#show" class="cursor-pointer ml-2 text-sm font-semibold text-purple-500 hover:border-b hover:border-purple-500 transform transition-transform duration-300">- My Order</a></li>
+                <li><a hx-get="/user-details" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#show" class="cursor-pointer ml-2 text-sm font-semibold text-purple-500 hover:border-b hover:border-purple-500 transform transition-transform duration-300">- My account</a></li>
+                <li><a hx-get="/logout" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#main" class="cursor-pointer ml-2 text-md font-semibold text-red-500 hover:border-b hover:border-red-500 transform transition-transform duration-300">- Sign off</a></li>
+            </ul>
+        </div>
+
+        <div class="right-transition products w-full lg:w-3/4 mt-4 lg:mt-0"
+             hx-get="/api/product/get-cart" hx-trigger="load" hx-swap="innerHTML transition:true" id="show">
+
+        </div>
+    </div>
+</main>
+<footer hx-get="/footer" hx-trigger="load" class="p-1 bg-gray-100 flex flex-col items-center justify-center bottom-0 left-0 w-full"></footer>
+</body>

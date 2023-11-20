@@ -1,23 +1,30 @@
 <link rel="stylesheet" href="output.css">
+<link rel="stylesheet" href="transition.css">
 <script src="https://unpkg.com/htmx.org@1.9.6"></script>
-<div id="main" class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0 mb-16" th:object="${productView}" xmlns:th="http://www.w3.org/1999/xhtml">
+<body id="main" class="flex flex-col min-h-screen">
+    <nav hx-get="/navbar" hx-trigger="load" class="border-b border-gray-300"></nav>
+        <main class="flex-grow">
+            <div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0 mb-10" th:object="${productView}" xmlns:th="http://www.w3.org/1999/xhtml">
 
-    <div class="images relative w-full mb-6 lg:mb-0 lg:w-3/5">
-        <button href="#" class="absolute top-0 left-0 m-2 p-2 bg-gray-800 text-white rounded-full hover:bg-gray-600 transition-all duration-300">
-            ATRAS
-        </button>
-        <img class="rounded-xl" th:src="${productView.image}">
-    </div>
+                <div class="left-transition images relative w-full mb-2 lg:mb-0 lg:w-3/5">
+                    <button hx-get="/shop" hx-trigger="click" hx-swap="innerHTML transition:true" hx-target="#main" class="absolute top-0 left-0 m-2 p-2 bg-purple-500 text-white rounded-full hover:bg-purple-800 transition-all duration-300">
+                        Back
+                    </button>
+                    <img class="rounded-xl max-w-full h-auto" th:src="${productView.image}">
+                </div>
 
-    <div class="information w-full lg:w-2/5 lg:p-6">
-        <h1 class="text-2xl ml-4 mb-4 -mt-2" th:text="${productView.name}">Product Name</h1>
-        <h3 class="text-lg ml-4 mb-6" th:text="${productView.maker}">Product Name</h3>
-        <p class="mt-2 ml-4 text-gray-400" th:text="${productView.description}">Lorem</p>
-        <p class="mt-6 ml-4 text-gray-400" th:text="'$'+ ${productView.price}">$9.99</p>
-        <p class="mt-6 ml-4 text-gray-400" th:text="'Stock: '+ ${productView.stock}">Lorem</p>
+                <div class="right-transition w-full lg:w-2/5 lg:p-6">
+                    <h1 class="text-2xl ml-4 mb-4 -mt-2" th:text="${productView.name}">Product Name</h1>
+                    <h3 class="text-lg ml-4 mb-6" th:text="${productView.maker}">Product Name</h3>
+                    <p class=" mt-2 ml-4 text-gray-400" th:text="${productView.description}">Lorem</p>
+                    <p class="mt-6 ml-4 text-gray-400" th:text="'$'+ ${productView.price}">$9.99</p>
+                    <p class="mt-6 ml-4 text-gray-400" th:text="'Stock: '+ ${productView.stock}">Lorem</p>
 
-        <a href="#" class="mt-6 ml-2 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
-            Add to cart
-        </a>
-    </div>
-</div>
+                    <a th:attr="hx-get='/api/product/add-product/' + ${productView.sku}" hx-trigger="click" hx-swap="none" class="bottom-transition cursor-pointer mt-6 ml-2 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
+                        Add to cart
+                    </a>
+                </div>
+            </div>
+        </main>
+    <footer hx-get="/footer" hx-trigger="load" class="p-1 bg-gray-100 flex flex-col items-center justify-center bottom-0 left-0 w-full"></footer>
+</body>

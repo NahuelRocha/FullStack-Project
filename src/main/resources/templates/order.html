@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="transition.css">
+  <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+</head>
+<body id="main" class="flex flex-col min-h-screen">
+<nav hx-get="/navbar" hx-trigger="load" class="border-b border-gray-300"></nav>
+<main class="flex items-center justify-center mt-4">
+<div class="max-w-6xl flex flex-col items-center px-6 xl:px-0 rounded-xl shadow-lg bg-white p-2">
+    <div class="flex flex-row px-12 py-2">
+      <form th:action="@{/order}" th:object="${request}" method="post">
+        <h3 class="text-3xl mb-4 ml-1 text-center">Confirm Order</h3>
+        <div class="w-full mb-3">
+          <label for="email"
+                 class="block text-center text-purple-400 text-sm font-semibold mb-1">Email address</label>
+          <input type="email"
+                 th:field="*{email}"
+                 readonly
+                 required class="w-full px-2 py-2 border text-lg uppercase font-semibold text-center rounded-lg focus:outline-none focus:border-purple-400"
+                 id="email"
+                 aria-describedby="emailHelp">
+          <div id="emailHelp"
+               class="text-sm text-purple-500">
+            We'll never share your email with anyone else.
+          </div>
+          <p th:if="${#fields.hasErrors('email')}"
+             th:errors="*{email}"
+             style="color: red"></p>
+        </div>
+        <div class="mb-3">
+          <label for="amount"
+                 class="block text-center text-purple-400 text-sm font-semibold mb-1">Amount</label>
+          <input type="number"
+                 required th:field="*{amount}"
+                 readonly
+                 class="w-full text-lg text-green-400 uppercase font-semibold text-center px-2 py-2 border rounded-lg border-purple-400"
+                 id="amount">
+          <p th:if="${#fields.hasErrors('amount')}"
+             th:errors="*{amount}"
+             style="color: red"></p>
+
+        </div>
+        <div class="flex justify-center space-x-2">
+
+        <button hx-trigger="click" hx-get="/my-shopping" hx-swap="outerHTML transition:true" hx-target="#main"
+                class="bg-red-500 text-center text-white my-2 px-6 py-3 rounded-full hover:bg-red-900">Cancel</button>
+        <button type="submit"
+                class="bg-green-500 text-center text-white my-2 px-8 py-3 rounded-full hover:bg-green-900">Pay</button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</main>
+<footer hx-get="/footer" hx-trigger="load" class="p-1 bg-gray-100 flex flex-col items-center justify-center fixed bottom-0 left-0 w-full"></footer>
+</body>
+</html>

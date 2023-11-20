@@ -6,9 +6,9 @@ import jakarta.validation.constraints.Size;
 
 public record ValidPassword(
 
-        @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).{6,12}$", message = "Invalid password")
+        @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{6,}$", message = "Password must have at least 6 characters, an uppercase letter, a number, and a special character")
         @NotEmpty
-        @Size(min = 6, max = 12, message = "The name must be between 3 and 12 characters")
+        @Size(min = 6, message = "The password must be at least 6 characters, max 20 characters")
         String password
 ) {
 }

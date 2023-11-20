@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="output.css">
+<link rel="stylesheet" href="transition.css">
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<body id="main" class="flex flex-col min-h-screen">
+    <nav hx-get="/navbar" hx-trigger="load" class="border-b border-gray-300"></nav>
+    <main class="flex-grow">
+        <div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0 mb-10" xmlns:th="http://www.w3.org/1999/xhtml">
+            <div class="right-transition w-full lg:p-6 flex flex-col items-center justify-center space-y-12">
+                <h1 class="text-6xl ml-4 text-green-500 text-center font-semibold">SUCCESS!</h1>
+                <h3 class="text-2xl ml-4 font-semibold text-purple-500 text-center">Thanks for your purchase</h3>
+                <button hx-trigger="click" hx-post="/view-details" hx-swap="outerHTML transition:true" hx-target="#main"
+                        class="bg-green-500 text-white my-2 px-6 py-3 rounded-full hover:bg-green-900">View Details</button>
+            </div>
+        </div>
+    </main>
+
+    <footer hx-get="/footer" hx-trigger="load" class="p-1 bg-gray-100 flex flex-col items-center justify-center fixed bottom-0 left-0 w-full"></footer>
+</body>

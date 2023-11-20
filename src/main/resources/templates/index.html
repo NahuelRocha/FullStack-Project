@@ -2,22 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>App v1.0</title>
     <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="transition.css">
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
 </head>
-<body class="flex flex-col min-h-screen">
+<body id="main" class="flex flex-col min-h-screen">
 
 <nav hx-get="/navbar" hx-trigger="load" class="border-b border-gray-300"></nav>
 
     <main class="pb-6 flex-grow">
-        <div id="main" >
+        <div class="top-transition">
             <header class="px-6 py-10 lg:py-20 bg-purple-500">
                 <div class="max-w-3xl mx-auto text-center">
                     <p class="mb-2 text-3xl lg:text-5xl text-white">Welcome to LOGO</p>
                     <p class="mb-10 text-white">We sell everything for your home</p>
-                    <button hx-trigger="click" hx-get="/login" hx-swap="outerHTML" hx-target="#main">
-                        <a href="#" class="inline-block px-8 py-4 rounded-xl bg-white text-purple-500 hover:bg-gray-200">Start shopping</a>
+                    <button hx-trigger="click" hx-get="/shop" hx-swap="outerHTML transition:true" hx-target="#main">
+                        <a class="inline-block px-8 py-4 rounded-xl bg-white text-purple-500 hover:bg-gray-200">Start shopping</a>
                     </button>
                 </div>
             </header>

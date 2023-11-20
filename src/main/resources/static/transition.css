@@ -1,0 +1,135 @@
+/* left to right */
+@keyframes fade-in {
+    from { opacity: 0; }
+}
+
+@keyframes fade-out {
+    to { opacity: 0; }
+}
+
+@keyframes slide-from-right {
+    from { transform: translateX(-300px); }
+}
+
+@keyframes slide-to-left {
+    to { transform: translateX(0px); }
+}
+
+/* define animations for the old and new content */
+::view-transition-old(slide-it) {
+    animation: 50ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+    50ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+
+::view-transition-new(slide-it) {
+    animation: 1100ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+    1100ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+/* tie the view transition to a given CSS class */
+.left-transition {
+    view-transition-name: slide-it;
+}
+
+
+@keyframes fade-in-rtl {
+    from { opacity: 0; }
+}
+
+@keyframes fade-out-rtl {
+    to { opacity: 0; }
+}
+
+@keyframes slide-from-left {
+    from { transform: translateX(300px); }
+}
+
+@keyframes slide-to-right {
+    to { transform: translateX(0px); }
+}
+
+/* define animations for the old and new content */
+::view-transition-old(slide-it-rtl) {
+    animation: 1ms cubic-bezier(0.4, 0, 1, 1) both fade-out-rtl,
+    1ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
+}
+
+::view-transition-new(slide-it-rtl) {
+    animation: 900ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in-rtl,
+    900ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-left;
+}
+
+/* tie the view transition to a given CSS class */
+.right-transition {
+    view-transition-name: slide-it-rtl;
+}
+
+
+/* bottom to top */
+@keyframes fade-in-btt {
+    from { opacity: 0; }
+}
+
+@keyframes fade-out-btt {
+    to { opacity: 0; }
+}
+
+@keyframes slide-from-bottom {
+    from { transform: translateY(300px); }
+}
+
+@keyframes slide-to-top {
+    to { transform: translateY(0px); }
+}
+
+/* define animations for the old and new content */
+::view-transition-old(slide-it-btt) {
+    animation: 10ms cubic-bezier(0.4, 0, 1, 1) both fade-out-btt,
+    10ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-top;
+}
+
+::view-transition-new(slide-it-btt) {
+    animation: 1500ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in-btt,
+    1500ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-bottom;
+}
+
+/* tie the view transition to a given CSS class */
+.bottom-transition {
+    view-transition-name: slide-it-btt;
+}
+
+/* top to bottom */
+@keyframes fade-in-ttb {
+    from { opacity: 0; }
+}
+
+@keyframes fade-out-ttb {
+    to { opacity: 0; }
+}
+
+@keyframes slide-from-top {
+    from { transform: translateY(-300px); }
+}
+
+@keyframes slide-to-bottom {
+    to { transform: translateY(0px); }
+}
+
+/* define animations for the old and new content */
+::view-transition-old(slide-it-ttb) {
+    animation: 10ms cubic-bezier(0.4, 0, 1, 1) both fade-out-ttb,
+    10ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-bottom;
+}
+
+::view-transition-new(slide-it-ttb) {
+    animation: 1100ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in-ttb,
+    1100ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-top;
+}
+
+/* tie the view transition to a given CSS class */
+.top-transition {
+    view-transition-name: slide-it-ttb;
+}
+
+
+

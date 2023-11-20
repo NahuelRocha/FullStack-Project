@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="output.css">
+<link rel="stylesheet" href="transition.css">
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<body id="main" class="flex flex-col min-h-screen">
+<main class="flex-grow">
+  <div class="max-w-6xl mx-auto flex flex-col items-center px-6 xl:px-0 rounded-xl shadow-lg bg-white py-2" xmlns:th="http://www.w3.org/1999/xhtml">
+    <h3 class="text-3xl mb-2">My Order Details</h3>
+    <h4 class="text-xl mb-2 text-purple-500 font-semibold">Product List</h4>
+    <div th:each="product : ${getProducts}">
+      <div class="flex mb-2 items-center">
+        <p class="text-md mr-2 text-purple-500" th:text="${product.name}+':'">Quantity of products: </p><p class="text-md text-gray-400" th:text="'$' + ${product.price}">Price</p>
+      </div>
+    </div>
+    <div class="flex mb-2 items-center">
+      <p class="text-md mr-2 text-purple-500">Quantity of products: </p><p class="text-md text-gray-400" th:text="${orderDetail.quantity}">Quantity</p>
+    </div>
+    <div class="flex items-center">
+      <p class="text-md mr-2 text-purple-500 font-semibold uppercase">Total price: </p><p class="text-md font-semibold uppercase text-green-400" th:text="'$' + ${orderDetail.total}">Total</p>
+    </div>
+  </div>
+  <form hx-post="/create-order" method="post" hx-target="#main" hx-swap="innerHTML transition:true">
+    <div class="max-w-6xl flex flex-col px-6 xl:px-0 rounded-xl shadow-lg bg-white p-2 mt-2" xmlns:th="http://www.w3.org/1999/xhtml">
+      <h3 class="text-3xl ml-4 mb-4">Shipping Information</h3>
+      <div class="flex flex-row px-4 mb-2">
+        <div class="w-full mr-2">
+          <label for="firstname" class="ml-4 block text-purple-400 text-sm font-semibold mb-2">Firstname</label>
+          <input type="text" id="firstname" placeholder="Enter your firstname" name="firstname" class="w-full mx-2 px-4 py-2 border rounded-lg focus:outline-none focus:border-purple-500" required>
+        </div>
+        <div class="w-full">
+          <label for="lastname" class="ml-4 block text-purple-400 text-sm font-semibold mb-2">Lastname</label>
+          <input type="text" id="lastname" placeholder="Enter your lastname" name="lastname" class="w-full mx-2 px-4 py-2 border rounded-lg focus:outline-none focus:border-purple-500" required>
+        </div>
+      </div>
+        <div class="w-full px-4">
+          <label for="address" class="ml-4 block text-purple-400 text-sm font-semibold mb-2">Address</label>
+          <input type="text" id="address" placeholder="Enter your address" name="address" class="w-full mx-2 px-4 py-2 border rounded-lg focus:outline-none focus:border-purple-500" required>
+        </div>
+      <div class="flex flex-row mt-2 px-4 mb-2">
+        <div class="w-full mr-2">
+          <label for="zipcode" class="ml-4 block text-purple-400 text-sm font-semibold mb-2">Zip code</label>
+          <input type="text" id="zipcode" placeholder="Enter your zipcode" name="zipcode" class="w-full mx-2 px-4 py-2 border rounded-lg focus:outline-none focus:border-purple-500" required>
+        </div>
+        <div class="w-full">
+          <label for="city" class="ml-4 block text-purple-400 text-sm font-semibold mb-2">City/Place</label>
+          <input type="text" id="city" placeholder="Enter your city" name="city" class="w-full mx-2 px-4 py-2 border rounded-lg focus:outline-none focus:border-purple-500" required>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-6xl flex flex-col px-6 xl:px-0 rounded-xl shadow-lg bg-white p-2 mt-2" xmlns:th="http://www.w3.org/1999/xhtml">
+      <h3 class="text-3xl ml-4 mb-4">Contact Information</h3>
+      <div class="flex flex-row px-4 mb-2">
+        <div class="w-full mr-2">
+          <label for="email" class="ml-4 block text-purple-400 text-sm font-semibold mb-2">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" name="email" class="w-full mx-2 px-4 py-2 border rounded-lg focus:outline-none focus:border-purple-500" required>
+        </div>
+        <div class="w-full">
+          <label for="phone" class="ml-4 block text-purple-400 text-sm font-semibold mb-2">Phone</label>
+          <input type="text" id="phone" placeholder="Enter your phone" name="phone" class="w-full mx-2 px-4 py-2 border rounded-lg focus:outline-none focus:border-purple-500" required>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-center mt-2">
+      <div class="flex space-x-4">
+        <button hx-trigger="click" hx-get="/my-shopping" hx-swap="outerHTML transition:true" hx-target="#main" class="bg-purple-500 text-white my-2 px-6 py-2 rounded-full hover:bg-purple-900">Edit Purchase</button>
+        <button type="submit" class="bg-green-500 text-white my-2 px-6 py-3 rounded-full hover:bg-green-900">Create Order</button>
+      </div>
+    </div>
+  </form>
+</main>
+</body>

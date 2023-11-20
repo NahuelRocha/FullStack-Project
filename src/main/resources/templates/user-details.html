@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="output.css">
+<link rel="stylesheet" href="transition.css">
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<body id="main" class="flex flex-col min-h-screen">
+<main class="flex-grow">
+  <div class="max-w-6xl mx-auto flex flex-col items-center px-6 py-2 xl:px-0 rounded-xl shadow-lg bg-white" xmlns:th="http://www.w3.org/1999/xhtml">
+    <h3 class="text-3xl mb-4">My Account Details</h3>
+    <div class="flex mb-4 items-center rounded-xl shadow-lg bg-white p-2">
+      <p class="text-lg mr-2 text-purple-500 ">Firstname: </p><p class="text-lg text-gray-400" th:text="${user.firstname}">name</p>
+    </div>
+    <div class="flex mb-4 items-center">
+      <p class="text-lg mr-2 text-purple-500">Lastname: </p><p class="text-lg text-gray-400" th:text="${user.lastname}">lastname</p>
+    </div>
+    <div class="flex mb-4 items-center rounded-xl shadow-lg bg-white p-2">
+      <p class="text-lg mr-2 text-purple-500 ">Email: </p><p class="text-lg text-gray-400" th:text="${user.email}">email</p>
+    </div>
+    <div class="flex mb-4 items-center">
+    <p class="text-lg mr-2 text-purple-500">Enabled: </p><p class="text-lg uppercase text-gray-400" th:text="${user.isEnabled}">enabled</p>
+    </div>
+  </div>
+</main>
+</body>
