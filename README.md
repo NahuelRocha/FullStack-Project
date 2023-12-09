@@ -15,4 +15,19 @@ Carrito de compras para cargar, crear, modificar y pagar pedidos con tarjeta.
 Historial de Órdenes:
 Detalles accesibles de todas las órdenes realizadas.
 
-### https://www.linkedin.com/feed/update/urn:li:activity:7132174260613042176/
+##### https://www.linkedin.com/feed/update/urn:li:activity:7132174260613042176/
+
+#### TecnologíasUtilizadas:
+- Frontend:
+-HTMX
+-Thymeleaf
+-CSS
+-TailwindCSS
+- Backend:
+-Spring Boot
+-Spring Security
+-JWT
+-MySQL
+-Docker
+- Gestión de Pagos:
+-Stripe
